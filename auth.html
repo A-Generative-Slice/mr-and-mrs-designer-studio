@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Client Portal — Sign In &amp; Register — Mr &amp; Mrs Modern</title>
+  <meta name="description" content="Access your atelier fittings, view saved garment measurements, and manage couture bookings with Mr &amp; Mrs Modern.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=multi_page_v2">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-mark.svg">
+</head>
+<body>
+
+  <!-- Dynamic Island Floating Header -->
+  <header class="dynamic-island-header" id="dynamicIslandHeader" role="banner">
+    <div class="island-inner">
+      <a href="index.html" class="island-brand" aria-label="Mr &amp; Mrs Modern Home">
+        <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" class="island-logo-img">
+      </a>
+
+      <nav class="island-nav" aria-label="Main Navigation">
+        <a href="index.html" class="island-nav-link">Home</a>
+        <a href="catalog.html" class="island-nav-link">Catalog &amp; Services</a>
+        <a href="about.html" class="island-nav-link">About Atelier</a>
+        <a href="contact.html" class="island-nav-link">Contact &amp; Bank</a>
+        <a href="booking.html" class="island-nav-link">Book Fitting</a>
+      </nav>
+
+      <div class="island-actions">
+        <div class="island-status">
+          <span class="status-dot-pulse"></span>
+          <span>Open 10 AM - 8 PM</span>
+        </div>
+
+        <a href="booking.html" class="island-btn-book">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Reserve Slot</span>
+        </a>
+
+        <a href="auth.html" class="island-auth-link" title="Client Sign In / Portal" aria-label="Client Sign In" style="background: var(--color-obsidian); color: #FFFFFF;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <a href="admin.html" class="island-auth-link" title="Studio Admin Dashboard" aria-label="Admin Dashboard" style="border: 1px solid rgba(197, 160, 89, 0.4);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        </a>
+
+        <button class="mobile-toggle" id="islandMobileToggle" aria-label="Open Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auth Container -->
+  <section class="section" style="padding: 4rem 0 6rem;">
+    <div class="container" style="max-width: 480px;">
+
+      <!-- Logged-in State Card -->
+      <div id="loggedInView" style="display: none; background: #FFFFFF; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 2.5rem; box-shadow: var(--shadow-subtle); text-align: center;">
+        <div id="googleBadgeContainer"></div>
+        <span class="badge-seal" style="margin-bottom: 0.75rem; display: inline-block;">Atelier Member</span>
+        <h2 style="font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 0.35rem;" id="userGreeting">Welcome Back</h2>
+        <p style="font-size: 0.85rem; color: var(--ink-secondary); margin-bottom: 1.5rem;" id="userEmailDisplay">client@studio.in</p>
+
+        <div style="background: var(--color-surface-subtle); border-radius: var(--radius-xs); padding: 1.25rem; margin-bottom: 1.5rem; text-align: left; font-size: 0.82rem;">
+          <div style="font-weight: 700; color: var(--gold-zari-dark); margin-bottom: 0.4rem;" id="userStatusHeading">Client Profile Active &bull; Supabase Synced</div>
+          <div style="color: var(--ink-secondary); line-height: 1.5;">Your bespoke fit profiles, digitized motif archives, and reservation vouchers are synchronized with our studio master.</div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-direction: column;">
+          <a href="booking.html" class="btn btn-primary" style="justify-content: center;">
+            Book New Fitting Slot &rarr;
+          </a>
+          <a href="catalog.html" class="btn btn-outline" style="justify-content: center;">
+            Explore Garment Catalog
+          </a>
+          <button onclick="handleClientLogout()" class="btn" style="background: transparent; color: var(--ink-secondary); border: 1px dashed var(--border-light); justify-content: center; margin-top: 0.5rem;">
+            Sign Out of Atelier
+          </button>
+        </div>
+      </div>
+
+      <!-- Auth Form Card -->
+      <div id="authCard" style="background: #FFFFFF; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
+        
+        <!-- Tab Switcher -->
+        <div style="display: flex; background: var(--color-surface-subtle); padding: 0.35rem; border-radius: 9999px; margin-bottom: 2rem;">
+          <button id="tabSignIn" onclick="switchAuthTab('signin')" style="flex: 1; padding: 0.6rem; font-size: 0.82rem; font-weight: 700; border: none; border-radius: 9999px; background: #FFFFFF; color: var(--color-obsidian); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: all 0.2s;">
+            Sign In
+          </button>
+          <button id="tabSignUp" onclick="switchAuthTab('signup')" style="flex: 1; padding: 0.6rem; font-size: 0.82rem; font-weight: 700; border: none; border-radius: 9999px; background: transparent; color: var(--ink-secondary); cursor: pointer; transition: all 0.2s;">
+            Create Account
+          </button>
+        </div>
+
+        <!-- 1. Sign In Form -->
+        <form id="formSignIn" onsubmit="handleSignInSubmit(event)">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.25rem;">Client Access</h2>
+            <p style="font-size: 0.8rem; color: var(--ink-secondary);">Instant sign in with your Google account or email</p>
+          </div>
+
+          <!-- Quick Google Sign-In Button -->
+          <button type="button" class="btn-google-auth" onclick="initiateGoogleLogin()" aria-label="Sign in with Google">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign in with Google</span>
+          </button>
+
+          <div class="auth-divider"><span>or with studio email</span></div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Email Address</label>
+            <input type="email" id="signInEmail" required class="est-input" style="width: 100%;" placeholder="e.g. client@example.com">
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Password</label>
+            <input type="password" id="signInPassword" required class="est-input" style="width: 100%;" placeholder="••••••••">
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnSignIn" style="width: 100%; justify-content: center; padding: 0.8rem; border-radius: 9999px;">
+            Sign In to Atelier
+          </button>
+
+          <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="booking.html" style="font-size: 0.78rem; color: var(--gold-zari-dark); text-decoration: none; font-weight: 600;">
+              Continue as Guest &rarr;
+            </a>
+          </div>
+        </form>
+
+        <!-- 2. Sign Up Form -->
+        <form id="formSignUp" onsubmit="handleSignUpSubmit(event)" style="display: none;">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <h2 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.25rem;">Join the Atelier</h2>
+            <p style="font-size: 0.8rem; color: var(--ink-secondary);">Create your client profile for streamlined fittings</p>
+          </div>
+
+          <!-- Quick Google Sign-Up Button -->
+          <button type="button" class="btn-google-auth" onclick="initiateGoogleLogin()" aria-label="Sign up with Google">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign up with Google</span>
+          </button>
+
+          <div class="auth-divider"><span>or fill details manually</span></div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Full Name *</label>
+            <input type="text" id="signUpName" required class="est-input" style="width: 100%;" placeholder="e.g. Ananya Rao">
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">WhatsApp Number *</label>
+            <input type="tel" id="signUpPhone" required class="est-input" style="width: 100%;" placeholder="+91 98000 00000">
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Email Address *</label>
+            <input type="email" id="signUpEmail" required class="est-input" style="width: 100%;" placeholder="ananya@example.com">
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Create Password *</label>
+            <input type="password" id="signUpPassword" required minlength="6" class="est-input" style="width: 100%;" placeholder="At least 6 characters">
+          </div>
+
+          <button type="submit" class="btn btn-gold" id="btnSignUp" style="width: 100%; justify-content: center; padding: 0.8rem; border-radius: 9999px;">
+            Create Member Account
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimal Footer -->
+  <footer class="footer-main" role="contentinfo" style="border-top: 1px solid var(--border-light); padding: 3rem 0 2rem; background: var(--color-surface);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.06);">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto;">
+        </a>
+
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; font-weight: 600;">
+          <a href="index.html" style="color: var(--ink-secondary); text-decoration: none;">Home</a>
+          <a href="catalog.html" style="color: var(--ink-secondary); text-decoration: none;">Catalog</a>
+          <a href="about.html" style="color: var(--ink-secondary); text-decoration: none;">About</a>
+          <a href="contact.html" style="color: var(--ink-secondary); text-decoration: none;">Contact &amp; Bank</a>
+          <a href="booking.html" style="color: var(--ink-secondary); text-decoration: none;">Book Slot</a>
+          <a href="auth.html" style="color: var(--color-obsidian); font-weight: 700; text-decoration: none;">Client Login</a>
+          <a href="admin.html" style="color: var(--gold-zari-dark); text-decoration: none;">Admin Panel</a>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; font-size: 0.75rem; color: var(--ink-muted);">
+        <div>
+          &copy; 2026 Mr &amp; Mrs Modern (GSTIN: 29AAMFM8921C1Z4). All rights reserved.
+        </div>
+        <div>
+          Supabase Cloud Security &bull; Client Data Encryption.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Quick Actions">
+    <a href="index.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="booking.html" class="bottom-bar-action" style="color: var(--gold-zari-dark);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      <span>Book Slot</span>
+    </a>
+    <a href="contact.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" style="display: none;" aria-hidden="true">
+    <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+    <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="drawer-header">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto; max-width: 200px;">
+        </a>
+        <button class="drawer-close" id="drawerCloseBtn" aria-label="Close menu">&times;</button>
+      </div>
+
+      <ul class="drawer-links">
+        <li><a href="index.html" class="drawer-link">Home <span>&rarr;</span></a></li>
+        <li><a href="catalog.html" class="drawer-link">Catalog &amp; Services <span>&rarr;</span></a></li>
+        <li><a href="about.html" class="drawer-link">About Atelier <span>&rarr;</span></a></li>
+        <li><a href="contact.html" class="drawer-link">Contact &amp; Banking Info <span>&rarr;</span></a></li>
+        <li><a href="booking.html" class="drawer-link">Book Fitting Slot <span>&rarr;</span></a></li>
+        <li><a href="auth.html" class="drawer-link" style="color: var(--gold-zari-dark); font-weight: 700;">Client Sign In / Register <span>&rarr;</span></a></li>
+        <li><a href="admin.html" class="drawer-link" style="color: var(--gold-zari-dark);">Admin Panel (Supabase) <span>&rarr;</span></a></li>
+      </ul>
+
+      <div class="drawer-footer">
+        <a href="booking.html" class="btn btn-gold btn-sm" style="width: 100%; border-radius: 9999px;">Schedule Atelier Fitting</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instant Google Account Chooser Modal (Fallback / One-Click Test) -->
+  <div class="mobile-drawer-overlay" id="googleChooserModal" style="display: none; align-items: center; justify-content: center; z-index: 9999;" aria-hidden="true">
+    <div class="mobile-drawer-backdrop" onclick="closeGoogleModal()"></div>
+    <div class="google-chooser-dialog" role="dialog" aria-modal="true" aria-labelledby="googleModalTitle">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span style="font-weight: 700; font-size: 0.95rem; color: #1F2937;" id="googleModalTitle">Sign in with Google</span>
+        </div>
+        <button onclick="closeGoogleModal()" style="background: none; border: none; font-size: 1.5rem; color: #9CA3AF; cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #6B7280; margin-bottom: 1.25rem;">Choose an account to continue to <strong>Mr &amp; Mrs Modern</strong></p>
+
+      <button class="google-account-tile" onclick="selectGoogleProfile('Ananya Rao', 'ananya.rao.fashion@gmail.com', '+91 98450 11223')">
+        <div class="google-avatar-circle">A</div>
+        <div>
+          <div style="font-weight: 700; font-size: 0.85rem; color: #1F2937;">Ananya Rao</div>
+          <div style="font-size: 0.76rem; color: #6B7280;">ananya.rao.fashion@gmail.com</div>
+        </div>
+      </button>
+
+      <button class="google-account-tile" onclick="selectGoogleProfile('Vikram Malhotra', 'vikram.malhotra@gmail.com', '+91 99001 88776')">
+        <div class="google-avatar-circle" style="background: #0F9D58;">V</div>
+        <div>
+          <div style="font-weight: 700; font-size: 0.85rem; color: #1F2937;">Vikram Malhotra</div>
+          <div style="font-size: 0.76rem; color: #6B7280;">vikram.malhotra@gmail.com</div>
+        </div>
+      </button>
+
+      <button class="google-account-tile" onclick="selectGoogleProfile('Pooja Hegde', 'pooja.couture@gmail.com', '+91 97400 55443')">
+        <div class="google-avatar-circle" style="background: #E37400;">P</div>
+        <div>
+          <div style="font-weight: 700; font-size: 0.85rem; color: #1F2937;">Pooja Hegde</div>
+          <div style="font-size: 0.76rem; color: #6B7280;">pooja.couture@gmail.com</div>
+        </div>
+      </button>
+
+      <!-- Custom Google Account input -->
+      <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-light);">
+        <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 0.35rem; color: var(--ink-secondary);">Use another Google account:</label>
+        <div style="display: flex; gap: 0.5rem;">
+          <input type="email" id="customGoogleEmail" placeholder="your.name@gmail.com" class="est-input" style="font-size: 0.8rem; padding: 0.5rem 0.75rem; flex: 1;">
+          <button onclick="handleCustomGoogleSelect()" class="btn btn-primary btn-sm" style="font-size: 0.75rem; white-space: nowrap;">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=multi_page_v2"></script>
+  <script src="script.js?v=multi_page_v2"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuthStatus();
+    });
+
+    function checkAuthStatus() {
+      const user = window.StudioDatabase ? window.StudioDatabase.getCurrentUser() : null;
+      if (user) {
+        document.getElementById('authCard').style.display = 'none';
+        document.getElementById('loggedInView').style.display = 'block';
+        document.getElementById('userGreeting').textContent = `Welcome, ${user.name}`;
+        document.getElementById('userEmailDisplay').textContent = user.email || user.phone || 'Atelier Client';
+
+        const badgeContainer = document.getElementById('googleBadgeContainer');
+        if (user.provider === 'google') {
+          badgeContainer.innerHTML = `
+            <div class="google-user-badge">
+              <svg viewBox="0 0 24 24" width="14" height="14">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Verified Google Account</span>
+            </div>
+          `;
+        } else {
+          badgeContainer.innerHTML = '';
+        }
+      } else {
+        document.getElementById('authCard').style.display = 'block';
+        document.getElementById('loggedInView').style.display = 'none';
+      }
+    }
+
+    async function initiateGoogleLogin() {
+      // If live Supabase is configured with OAuth, attempt OAuth flow
+      if (window.StudioDatabase && window.StudioDatabase.isConfigured()) {
+        const res = await window.StudioDatabase.signInWithGoogle();
+        if (res && res.success) return;
+      }
+      // Open instant Google account selector modal
+      const modal = document.getElementById('googleChooserModal');
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeGoogleModal() {
+      const modal = document.getElementById('googleChooserModal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    function selectGoogleProfile(name, email, phone) {
+      if (window.StudioDatabase) {
+        window.StudioDatabase.loginWithGoogleProfile({ name, email, phone });
+      }
+      closeGoogleModal();
+      checkAuthStatus();
+    }
+
+    function handleCustomGoogleSelect() {
+      const email = document.getElementById('customGoogleEmail').value.trim();
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid Google email address.');
+        return;
+      }
+      const name = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      selectGoogleProfile(name, email, '+91 98000 12345');
+    }
+
+    function switchAuthTab(tab) {
+      if (tab === 'signin') {
+        document.getElementById('formSignIn').style.display = 'block';
+        document.getElementById('formSignUp').style.display = 'none';
+        document.getElementById('tabSignIn').style.background = '#FFFFFF';
+        document.getElementById('tabSignIn').style.color = 'var(--color-obsidian)';
+        document.getElementById('tabSignUp').style.background = 'transparent';
+        document.getElementById('tabSignUp').style.color = 'var(--ink-secondary)';
+      } else {
+        document.getElementById('formSignIn').style.display = 'none';
+        document.getElementById('formSignUp').style.display = 'block';
+        document.getElementById('tabSignUp').style.background = '#FFFFFF';
+        document.getElementById('tabSignUp').style.color = 'var(--color-obsidian)';
+        document.getElementById('tabSignIn').style.background = 'transparent';
+        document.getElementById('tabSignIn').style.color = 'var(--ink-secondary)';
+      }
+    }
+
+    async function handleSignInSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('signInEmail').value;
+      const pass = document.getElementById('signInPassword').value;
+      const btn = document.getElementById('btnSignIn');
+      btn.textContent = 'Verifying...';
+
+      const res = await window.StudioDatabase.loginClient(email, pass);
+      if (res.success) {
+        checkAuthStatus();
+      } else {
+        alert('Sign In Error: ' + res.message);
+      }
+      btn.textContent = 'Sign In to Atelier';
+    }
+
+    async function handleSignUpSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('signUpName').value;
+      const phone = document.getElementById('signUpPhone').value;
+      const email = document.getElementById('signUpEmail').value;
+      const password = document.getElementById('signUpPassword').value;
+      const btn = document.getElementById('btnSignUp');
+      btn.textContent = 'Creating Profile...';
+
+      try {
+        await window.StudioDatabase.registerClient({ name, phone, email, password });
+        checkAuthStatus();
+      } catch (err) {
+        alert('Sign Up Error: ' + err.message);
+      }
+      btn.textContent = 'Create Member Account';
+    }
+
+    function handleClientLogout() {
+      if (window.StudioDatabase) {
+        window.StudioDatabase.logout();
+      }
+      checkAuthStatus();
+    }
+  </script>
+</body>
+</html>

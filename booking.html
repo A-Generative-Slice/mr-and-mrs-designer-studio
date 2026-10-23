@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Reserve Studio Fitting Slot — Mr &amp; Mrs Modern</title>
+  <meta name="description" content="Book an in-studio measurement trial, schedule saree doorstep courier pickup, or reserve a virtual couture consultation with our master artisans.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=multi_page_v2">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-mark.svg">
+</head>
+<body>
+
+  <!-- Dynamic Island Floating Header -->
+  <header class="dynamic-island-header" id="dynamicIslandHeader" role="banner">
+    <div class="island-inner">
+      <a href="index.html" class="island-brand" aria-label="Mr &amp; Mrs Modern Home">
+        <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" class="island-logo-img">
+      </a>
+
+      <nav class="island-nav" aria-label="Main Navigation">
+        <a href="index.html" class="island-nav-link">Home</a>
+        <a href="catalog.html" class="island-nav-link">Catalog &amp; Services</a>
+        <a href="about.html" class="island-nav-link">About Atelier</a>
+        <a href="contact.html" class="island-nav-link">Contact &amp; Bank</a>
+        <a href="booking.html" class="island-nav-link active">Book Fitting</a>
+      </nav>
+
+      <div class="island-actions">
+        <div class="island-status">
+          <span class="status-dot-pulse"></span>
+          <span>Open 10 AM - 8 PM</span>
+        </div>
+
+        <a href="booking.html" class="island-btn-book">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Reserve Slot</span>
+        </a>
+
+        <a href="auth.html" class="island-auth-link" title="Client Sign In / Portal" aria-label="Client Sign In">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <a href="admin.html" class="island-auth-link" title="Studio Admin Dashboard" aria-label="Admin Dashboard" style="border: 1px solid rgba(197, 160, 89, 0.4);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        </a>
+
+        <button class="mobile-toggle" id="islandMobileToggle" aria-label="Open Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="lookbook-hero">
+    <div class="container">
+      <div class="anim-fade-up">
+        <span class="eyebrow">Atelier Scheduling System</span>
+        <h1 class="lookbook-title">Reserve Your Fitting Slot</h1>
+        <p class="lookbook-subtitle">
+          Select your service discipline, choose an available date and time slot, and receive an instant booking voucher confirmed with our studio master.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Wizard Section -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-wizard-card anim-fade-up">
+
+        <!-- Form Step Container -->
+        <form id="studioBookingForm" onsubmit="handleBookingSubmission(event)">
+
+          <!-- 1. Service Selection -->
+          <div style="margin-bottom: 2.25rem;">
+            <span class="step-label">Step 01 &bull; Service Discipline</span>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 1rem;">What are you commissioning?</h3>
+
+            <div class="service-pill-selector">
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="Bridal & Saree Embroidery" checked>
+                <span>Bridal Embroidery</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="Saree Pre-Pleating & Box-Fold">
+                <span>Saree Pre-Pleat</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="Kids Festive Couture">
+                <span>Kids Couture</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="Unisex Bespoke Tailoring">
+                <span>Unisex Tailoring</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="DTF & Sublimation Printing">
+                <span>DTF Printing</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="book-service" value="Corporate Crests & Uniforms">
+                <span>Corporate Crests</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 2. Fitting Mode -->
+          <div style="margin-bottom: 2.25rem;">
+            <span class="step-label">Step 02 &bull; Consultation Format</span>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 1rem;">How would you like to connect?</h3>
+
+            <div class="fitting-type-grid">
+              <div class="fitting-type-card selected" data-type="In-Studio Atelier Trial" onclick="selectFittingType(this)">
+                <h4>In-Studio Atelier Trial</h4>
+                <p>Visit our Indiranagar studio for private fitting, fabric swatches, and postural measurements.</p>
+              </div>
+
+              <div class="fitting-type-card" data-type="Doorstep Courier / Pickup" onclick="selectFittingType(this)">
+                <h4>Doorstep Courier / Valet</h4>
+                <p>Have your sarees collected from your home or hotel, calibrated, and returned in crush-proof packaging.</p>
+              </div>
+
+              <div class="fitting-type-card" data-type="Virtual Video Consultation" onclick="selectFittingType(this)">
+                <h4>Virtual Video Fitting</h4>
+                <p>Direct video call with our chief designer for NRI, outstation, or destination bridal clients.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Date & Time Selection -->
+          <div style="margin-bottom: 2.25rem;">
+            <span class="step-label">Step 03 &bull; Preferred Date &amp; Time Slot</span>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 1rem;">Choose your calendar window</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; align-items: start;">
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary); display: block; margin-bottom: 0.4rem;">Select Date</label>
+                <input type="date" id="bookDate" class="est-input" style="width: 100%;" required>
+              </div>
+
+              <div>
+                <label style="font-size: 0.8rem; font-weight: 700; color: var(--ink-secondary); display: block; margin-bottom: 0.4rem;">Available Time Slots (IST)</label>
+                <div class="slot-grid" id="slotPickerContainer">
+                  <div class="slot-chip selected" onclick="selectSlot(this)">10:30 AM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">11:30 AM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">12:30 PM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">02:30 PM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">04:00 PM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">05:30 PM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">06:30 PM</div>
+                  <div class="slot-chip" onclick="selectSlot(this)">07:30 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Client Details -->
+          <div style="margin-bottom: 2.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <span class="step-label" style="margin-bottom: 0;">Step 04 &bull; Client Information</span>
+              <a href="auth.html" id="googleAutofillBtn" class="btn-google-auth" style="width: auto; padding: 0.35rem 0.85rem; font-size: 0.76rem; min-height: 34px; border-radius: 9999px; text-decoration: none;">
+                <svg viewBox="0 0 24 24" width="16" height="16">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Sign in with Google to Autofill</span>
+              </a>
+            </div>
+
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 1rem;">Who is this reservation for?</h3>
+
+            <div id="autofillNotice" style="display: none; background: rgba(66, 133, 244, 0.08); border: 1px solid rgba(66, 133, 244, 0.2); border-radius: var(--radius-xs); padding: 0.6rem 0.85rem; font-size: 0.78rem; color: #1A73E8; margin-bottom: 1rem; align-items: center; gap: 0.5rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Autofilled from your verified Atelier client profile</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Full Name *</label>
+                <input type="text" id="bookClientName" required class="est-input" style="width: 100%;" placeholder="e.g. Shalini Roy">
+              </div>
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">WhatsApp Number *</label>
+                <input type="tel" id="bookClientPhone" required class="est-input" style="width: 100%;" placeholder="+91 98765 43210">
+              </div>
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Email Address</label>
+                <input type="email" id="bookClientEmail" class="est-input" style="width: 100%;" placeholder="shalini@example.com">
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Garment Notes / Event Timeline</label>
+              <textarea id="bookNotes" rows="3" class="est-input" style="width: 100%; resize: vertical;" placeholder="Mention wedding date, number of sarees, fabric preferences, or color references..."></textarea>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-gold" id="btnSubmitBooking" style="width: 100%; padding: 0.95rem; font-size: 0.95rem; border-radius: 9999px; justify-content: center;">
+            <span>Confirm &amp; Generate Atelier Pass</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        </form>
+
+        <!-- Dynamic Booking Voucher Pass (Appears upon reservation) -->
+        <div id="bookingPassContainer" style="display: none;">
+          <div class="booking-voucher">
+            <div class="voucher-top">
+              <div>
+                <div style="font-size: 0.75rem; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.1em;">RESERVATION CONFIRMED</div>
+                <div style="font-family: var(--font-display); font-size: 1.4rem; color: #FFFFFF;">Mr &amp; Mrs Modern</div>
+              </div>
+              <div class="voucher-ref" id="passId">BK-8942</div>
+            </div>
+
+            <div class="voucher-grid">
+              <div>
+                <div class="voucher-item-lbl">Client Name</div>
+                <div class="voucher-item-val" id="passClientName">Priyanka Sharma</div>
+              </div>
+              <div>
+                <div class="voucher-item-lbl">Service Discipline</div>
+                <div class="voucher-item-val" id="passService">Bridal &amp; Saree Embroidery</div>
+              </div>
+              <div>
+                <div class="voucher-item-lbl">Date &amp; Slot</div>
+                <div class="voucher-item-val" id="passDateTime">Oct 26, 2026 &bull; 11:30 AM</div>
+              </div>
+              <div>
+                <div class="voucher-item-lbl">Consultation Mode</div>
+                <div class="voucher-item-val" id="passFittingType">In-Studio Atelier Trial</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed rgba(255, 255, 255, 0.18); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+              <div style="font-size: 0.78rem; color: #9CA3AF;">
+                Saved to Studio Database &bull; Concierge notified
+              </div>
+              <a href="javascript:void(0)" id="passWhatsAppLink" target="_blank" class="btn btn-primary btn-sm" style="background: #25D366; border-color: #25D366; color: #FFFFFF;">
+                Open WhatsApp Confirmation
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Minimal Multi-Page Footer -->
+  <footer class="footer-main" role="contentinfo" style="border-top: 1px solid var(--border-light); padding: 3rem 0 2rem; background: var(--color-surface);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.06);">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto;">
+        </a>
+
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; font-weight: 600;">
+          <a href="index.html" style="color: var(--ink-secondary); text-decoration: none;">Home</a>
+          <a href="catalog.html" style="color: var(--ink-secondary); text-decoration: none;">Catalog</a>
+          <a href="about.html" style="color: var(--ink-secondary); text-decoration: none;">About</a>
+          <a href="contact.html" style="color: var(--ink-secondary); text-decoration: none;">Contact &amp; Bank</a>
+          <a href="booking.html" style="color: var(--color-obsidian); font-weight: 700; text-decoration: none;">Book Slot</a>
+          <a href="auth.html" style="color: var(--ink-secondary); text-decoration: none;">Client Login</a>
+          <a href="admin.html" style="color: var(--gold-zari-dark); text-decoration: none;">Admin Panel</a>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; font-size: 0.75rem; color: var(--ink-muted);">
+        <div>
+          &copy; 2026 Mr &amp; Mrs Modern. Legal Entity: <strong>Mr &amp; Mrs Modern</strong> (GSTIN: 29AAMFM8921C1Z4).
+        </div>
+        <div>
+          Slot Scheduling System &bull; Supabase Database Connected.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Quick Actions">
+    <a href="index.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="booking.html" class="bottom-bar-action active" style="color: var(--gold-zari-dark);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      <span>Book Slot</span>
+    </a>
+    <a href="contact.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" style="display: none;" aria-hidden="true">
+    <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+    <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="drawer-header">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto; max-width: 200px;">
+        </a>
+        <button class="drawer-close" id="drawerCloseBtn" aria-label="Close menu">&times;</button>
+      </div>
+
+      <ul class="drawer-links">
+        <li><a href="index.html" class="drawer-link">Home <span>&rarr;</span></a></li>
+        <li><a href="catalog.html" class="drawer-link">Catalog &amp; Services <span>&rarr;</span></a></li>
+        <li><a href="about.html" class="drawer-link">About Atelier <span>&rarr;</span></a></li>
+        <li><a href="contact.html" class="drawer-link">Contact &amp; Banking Info <span>&rarr;</span></a></li>
+        <li><a href="booking.html" class="drawer-link" style="color: var(--gold-zari-dark); font-weight: 700;">Book Fitting Slot <span>&rarr;</span></a></li>
+        <li><a href="auth.html" class="drawer-link">Client Sign In / Register <span>&rarr;</span></a></li>
+        <li><a href="admin.html" class="drawer-link" style="color: var(--gold-zari-dark);">Admin Panel (Supabase) <span>&rarr;</span></a></li>
+      </ul>
+
+      <div class="drawer-footer">
+        <a href="booking.html" class="btn btn-gold btn-sm" style="width: 100%; border-radius: 9999px;">Schedule Atelier Fitting</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=multi_page_v2"></script>
+  <script src="script.js?v=multi_page_v2"></script>
+  <script>
+    // Set default date to tomorrow and check URL params for pre-selected service
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.getElementById('bookDate');
+      if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+        dateInput.min = new Date().toISOString().split('T')[0];
+      }
+
+      // Pre-select service from URL parameter (e.g. ?service=saree-pleating)
+      const params = new URLSearchParams(window.location.search);
+      const svcParam = params.get('service');
+      if (svcParam) {
+        const mapping = {
+          'embroidery': 'Bridal & Saree Embroidery',
+          'saree-pleating': 'Saree Pre-Pleating & Box-Fold',
+          'kids-couture': 'Kids Festive Couture',
+          'tailoring': 'Unisex Bespoke Tailoring',
+          'printing': 'DTF & Sublimation Printing',
+          'corporate': 'Corporate Crests & Uniforms'
+        };
+        const targetValue = mapping[svcParam] || svcParam;
+        const targetRadio = document.querySelector(`input[name="book-service"][value="${targetValue}"]`);
+        if (targetRadio) {
+          targetRadio.checked = true;
+        }
+      }
+
+      checkExistingUser();
+    });
+
+    function checkExistingUser() {
+      const user = window.StudioDatabase ? window.StudioDatabase.getCurrentUser() : null;
+      if (user) {
+        const nameEl = document.getElementById('bookClientName');
+        const phoneEl = document.getElementById('bookClientPhone');
+        const emailEl = document.getElementById('bookClientEmail');
+        if (nameEl && !nameEl.value && user.name) nameEl.value = user.name;
+        if (phoneEl && !phoneEl.value && user.phone) phoneEl.value = user.phone;
+        if (emailEl && !emailEl.value && user.email) emailEl.value = user.email;
+
+        const notice = document.getElementById('autofillNotice');
+        if (notice) notice.style.display = 'flex';
+        const btn = document.getElementById('googleAutofillBtn');
+        if (btn) btn.style.display = 'none';
+      }
+    }
+
+    let selectedFittingTypeVal = 'In-Studio Atelier Trial';
+    let selectedTimeSlotVal = '10:30 AM';
+
+    function selectFittingType(el) {
+      document.querySelectorAll('.fitting-type-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedFittingTypeVal = el.getAttribute('data-type');
+    }
+
+    function selectSlot(el) {
+      document.querySelectorAll('.slot-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedTimeSlotVal = el.textContent.trim();
+    }
+
+    async function handleBookingSubmission(e) {
+      e.preventDefault();
+
+      let service = 'Bridal & Saree Embroidery';
+      const serviceRadio = document.querySelector('input[name="book-service"]:checked');
+      if (serviceRadio) service = serviceRadio.value;
+
+      const date = document.getElementById('bookDate').value;
+      const clientName = document.getElementById('bookClientName').value;
+      const clientPhone = document.getElementById('bookClientPhone').value;
+      const clientEmail = document.getElementById('bookClientEmail').value;
+      const notes = document.getElementById('bookNotes').value;
+
+      const bookingPayload = {
+        client_name: clientName,
+        client_phone: clientPhone,
+        client_email: clientEmail,
+        service: service,
+        booking_date: date,
+        time_slot: selectedTimeSlotVal,
+        fitting_type: selectedFittingTypeVal,
+        notes: notes
+      };
+
+      const btn = document.getElementById('btnSubmitBooking');
+      btn.innerHTML = '<span>Saving to Studio Database...</span>';
+      btn.disabled = true;
+
+      try {
+        const res = await window.StudioDatabase.createBooking(bookingPayload);
+
+        // Display voucher pass
+        document.getElementById('passId').textContent = res.id;
+        document.getElementById('passClientName').textContent = res.client_name;
+        document.getElementById('passService').textContent = res.service;
+        document.getElementById('passDateTime').textContent = `${res.booking_date} • ${res.time_slot}`;
+        document.getElementById('passFittingType').textContent = res.fitting_type;
+
+        const summary = 
+          `Atelier Booking Pass [${res.id}]\n` +
+          `• Client: ${res.client_name} (${res.client_phone})\n` +
+          `• Service: ${res.service}\n` +
+          `• Date & Slot: ${res.booking_date} at ${res.time_slot}\n` +
+          `• Mode: ${res.fitting_type}\n` +
+          `• Notes: ${res.notes || 'None'}`;
+
+        document.getElementById('passWhatsAppLink').href = `https://wa.me/?text=${encodeURIComponent(summary)}`;
+
+        document.getElementById('studioBookingForm').style.display = 'none';
+        document.getElementById('bookingPassContainer').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('bookingPassContainer').offsetTop - 120, behavior: 'smooth' });
+
+      } catch (err) {
+        alert('Booking error: ' + err.message);
+        btn.innerHTML = '<span>Confirm &amp; Generate Atelier Pass</span>';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

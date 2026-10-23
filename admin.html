@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Atelier Admin Dashboard — Mr &amp; Mrs Modern</title>
+  <meta name="description" content="Production-grade administrative panel connected to Supabase cloud database to manage client bookings, walk-ins, and couture inquiries.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=multi_page_v2">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-mark.svg">
+</head>
+<body style="padding-top: 0; background: #F8F9FA;">
+
+  <!-- Admin Header Strip -->
+  <header class="admin-header-strip">
+    <div class="container admin-nav-bar">
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <a href="index.html" class="island-brand">
+          <img src="assets/images/logo-light.svg" alt="MR &amp; MRS MODERN" style="height: 30px; width: auto;">
+        </a>
+        <span class="admin-title-badge">Atelier Management System</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <!-- Supabase Cloud Status Indicator -->
+        <div id="supabaseStatusPill" class="supabase-badge local" onclick="openConfigModal()" style="cursor: pointer;" title="Click to configure Supabase Project">
+          <span class="status-dot-pulse" style="background: #FBBF24;"></span>
+          <span id="supabaseStatusText">Local Storage Mode</span>
+          <span style="font-size: 0.65rem; opacity: 0.8;">(Configure)</span>
+        </div>
+
+        <button onclick="openAddBookingModal()" class="btn btn-gold btn-sm" style="border-radius: 9999px; padding: 0.35rem 0.9rem; font-size: 0.75rem;">
+          + New Walk-In
+        </button>
+
+        <a href="index.html" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.25); color: #FFFFFF; border-radius: 9999px; padding: 0.35rem 0.9rem; font-size: 0.75rem;">
+          Exit to Website &rarr;
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Main Dashboard Content -->
+  <main class="container" style="padding: 2.5rem 1.25rem 4rem;">
+
+    <!-- Dashboard Header -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div>
+        <span class="eyebrow" style="color: var(--gold-zari-dark);">Live Atelier Console</span>
+        <h1 style="font-family: var(--font-display); font-size: 1.85rem; margin: 0.25rem 0 0.5rem; color: var(--ink-primary);">
+          Fittings &amp; Client Database
+        </h1>
+        <p style="font-size: 0.85rem; color: var(--ink-secondary); margin: 0;">
+          Synchronized with <strong>Supabase</strong> database. Manages bridal fittings, saree pleat orders, and walk-in requests.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button onclick="exportBookingsToCSV()" class="btn btn-outline btn-sm" style="background: #FFFFFF;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          <span>Export CSV</span>
+        </button>
+        <button onclick="refreshDashboard()" class="btn btn-outline btn-sm" style="background: #FFFFFF;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span>Sync Cloud</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Analytics Metric Cards -->
+    <div class="admin-metrics-grid">
+      <div class="admin-stat-card">
+        <div class="stat-title">Total Reservations</div>
+        <div class="stat-value" id="metricTotalBookings">0</div>
+        <div class="stat-sub">Across all 6 disciplines</div>
+      </div>
+
+      <div class="admin-stat-card">
+        <div class="stat-title">Confirmed Slots</div>
+        <div class="stat-value" id="metricConfirmed" style="color: #065F46;">0</div>
+        <div class="stat-sub">Calendar locked &amp; scheduled</div>
+      </div>
+
+      <div class="admin-stat-card">
+        <div class="stat-title">Pending Approvals</div>
+        <div class="stat-value" id="metricPending" style="color: #B45309;">0</div>
+        <div class="stat-sub">Awaiting concierge contact</div>
+      </div>
+
+      <div class="admin-stat-card">
+        <div class="stat-title">Registered Clients</div>
+        <div class="stat-value" id="metricClients" style="color: var(--gold-zari-dark);">0</div>
+        <div class="stat-sub">Couture client profiles</div>
+      </div>
+    </div>
+
+    <!-- Bookings Manager Table Card -->
+    <div class="admin-table-container">
+      <div class="admin-table-header">
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <h2 style="font-family: var(--font-display); font-size: 1.2rem; margin: 0;">Scheduled Fittings</h2>
+          
+          <!-- Status Filter Tabs -->
+          <div style="display: flex; gap: 0.35rem; background: var(--color-surface-subtle); padding: 0.25rem; border-radius: 9999px;">
+            <button onclick="filterStatus('All', this)" class="btn-filter active" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 9999px; background: #FFFFFF; cursor: pointer;">All</button>
+            <button onclick="filterStatus('Pending', this)" class="btn-filter" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 9999px; background: transparent; color: var(--ink-secondary); cursor: pointer;">Pending</button>
+            <button onclick="filterStatus('Confirmed', this)" class="btn-filter" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 9999px; background: transparent; color: var(--ink-secondary); cursor: pointer;">Confirmed</button>
+            <button onclick="filterStatus('Completed', this)" class="btn-filter" style="padding: 0.25rem 0.65rem; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 9999px; background: transparent; color: var(--ink-secondary); cursor: pointer;">Completed</button>
+          </div>
+        </div>
+
+        <div>
+          <input type="text" id="adminSearchInput" oninput="handleSearch(this.value)" class="admin-search-input" placeholder="Search client name or phone...">
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="admin-table" id="bookingsTable">
+          <thead>
+            <tr>
+              <th>Ref ID</th>
+              <th>Client Contact</th>
+              <th>Service Discipline</th>
+              <th>Date &amp; Time Slot</th>
+              <th>Consultation Mode</th>
+              <th>Status</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <!-- Dynamically populated from Supabase -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Registered Clients Registry -->
+    <div class="admin-table-container">
+      <div class="admin-table-header">
+        <h2 style="font-family: var(--font-display); font-size: 1.2rem; margin: 0;">Registered Clients Registry</h2>
+        <span style="font-size: 0.78rem; color: var(--ink-muted);">Client logins &amp; booking history</span>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="admin-table" id="clientsTable">
+          <thead>
+            <tr>
+              <th>Client ID</th>
+              <th>Full Name</th>
+              <th>Phone / WhatsApp</th>
+              <th>Email</th>
+              <th>Total Bookings</th>
+              <th>Tier</th>
+            </tr>
+          </thead>
+          <tbody id="clientsTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Supabase Cloud Configuration Modal -->
+  <div class="modal-overlay" id="configModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <h3 style="font-family: var(--font-display); font-size: 1.35rem; margin: 0;">Connect Supabase Cloud</h3>
+        </div>
+        <button onclick="closeConfigModal()" style="border: none; background: transparent; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.5; margin-bottom: 1.25rem;">
+        Enter your project's URL and Public Anon Key from your <a href="https://supabase.com/dashboard" target="_blank" style="color: var(--gold-zari-dark); font-weight: 700;">Supabase Dashboard</a> (under Settings &rarr; API). All client bookings and accounts will instantly sync to the cloud.
+      </p>
+
+      <form onsubmit="handleSaveConfig(event)">
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Supabase Project URL</label>
+          <input type="url" id="cfgSupabaseUrl" class="est-input" style="width: 100%;" placeholder="https://your-project-id.supabase.co">
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Supabase Anon Public API Key</label>
+          <input type="text" id="cfgSupabaseKey" class="est-input" style="width: 100%; font-family: monospace; font-size: 0.8rem;" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+        </div>
+
+        <div id="testConnStatus" style="display: none; padding: 0.75rem; border-radius: var(--radius-xs); font-size: 0.8rem; margin-bottom: 1.25rem;"></div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+          <button type="button" onclick="testSupabaseConnection()" class="btn btn-outline" style="flex: 1; justify-content: center;">
+            Test Connection
+          </button>
+          <button type="submit" class="btn btn-gold" style="flex: 1; justify-content: center;">
+            Save &amp; Connect
+          </button>
+        </div>
+      </form>
+
+      <!-- SQL Table Schema Code Snippet for Supabase -->
+      <div style="border-top: 1px solid var(--border-light); padding-top: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--gold-zari-dark);">Database Schema SQL</span>
+          <button onclick="copySqlSchema()" class="btn btn-outline btn-sm" id="btnCopySql" style="padding: 0.2rem 0.6rem; font-size: 0.7rem;">
+            Copy SQL Schema
+          </button>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--ink-secondary); margin: 0 0 0.5rem;">
+          Paste this into your <strong>Supabase SQL Editor</strong> to create the tables in 1-click:
+        </p>
+        <pre style="background: #111111; color: #A7F3D0; padding: 0.85rem; border-radius: var(--radius-xs); font-size: 0.72rem; overflow-x: auto; max-height: 180px;"><code id="sqlSchemaCode"></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Walk-In Booking Modal -->
+  <div class="modal-overlay" id="addBookingModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-family: var(--font-display); font-size: 1.35rem; margin: 0;">Add Walk-In Reservation</h3>
+        <button onclick="closeAddBookingModal()" style="border: none; background: transparent; font-size: 1.5rem; cursor: pointer;">&times;</button>
+      </div>
+
+      <form onsubmit="handleManualBooking(event)">
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Client Name *</label>
+          <input type="text" id="manualName" required class="est-input" style="width: 100%;" placeholder="e.g. Meera Nair">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Phone Number *</label>
+            <input type="tel" id="manualPhone" required class="est-input" style="width: 100%;" placeholder="+91 98000 00000">
+          </div>
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Email Address</label>
+            <input type="email" id="manualEmail" class="est-input" style="width: 100%;" placeholder="client@example.com">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Service Discipline</label>
+          <select id="manualService" class="est-select" style="width: 100%;">
+            <option value="Bridal & Saree Embroidery">Bridal &amp; Saree Embroidery</option>
+            <option value="Saree Pre-Pleating & Box-Fold">Saree Pre-Pleating &amp; Box-Fold</option>
+            <option value="Kids Festive Couture">Kids Festive Couture</option>
+            <option value="Unisex Bespoke Tailoring">Unisex Bespoke Tailoring</option>
+            <option value="DTF & Sublimation Printing">DTF &amp; Sublimation Printing</option>
+            <option value="Corporate Crests & Uniforms">Corporate Crests &amp; Uniforms</option>
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Fitting Date</label>
+            <input type="date" id="manualDate" required class="est-input" style="width: 100%;">
+          </div>
+          <div>
+            <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Time Slot</label>
+            <select id="manualTime" class="est-select" style="width: 100%;">
+              <option>10:30 AM</option>
+              <option>11:30 AM</option>
+              <option>12:30 PM</option>
+              <option>02:30 PM</option>
+              <option>04:00 PM</option>
+              <option>05:30 PM</option>
+              <option>06:30 PM</option>
+              <option>07:30 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Internal Notes</label>
+          <textarea id="manualNotes" rows="2" class="est-input" style="width: 100%;" placeholder="Fabric details or rush requirements..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%; justify-content: center;">
+          Record Walk-In Booking
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=multi_page_v2"></script>
+  <script>
+    let currentBookings = [];
+    let currentFilter = 'All';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Set today's date in manual booking
+      const manualDateInput = document.getElementById('manualDate');
+      if (manualDateInput) manualDateInput.value = new Date().toISOString().split('T')[0];
+
+      // Populate SQL schema box
+      if (window.StudioDatabase) {
+        document.getElementById('sqlSchemaCode').textContent = window.StudioDatabase.getSqlSchema();
+        updateSupabaseStatusDisplay();
+      }
+
+      await loadDashboardData();
+    });
+
+    function updateSupabaseStatusDisplay() {
+      const pill = document.getElementById('supabaseStatusPill');
+      const text = document.getElementById('supabaseStatusText');
+      if (window.StudioDatabase && window.StudioDatabase.isConfigured()) {
+        pill.className = 'supabase-badge connected';
+        text.textContent = 'Supabase Cloud Active';
+      } else {
+        pill.className = 'supabase-badge local';
+        text.textContent = 'Local Storage Mode';
+      }
+    }
+
+    async function loadDashboardData() {
+      if (!window.StudioDatabase) return;
+
+      currentBookings = await window.StudioDatabase.getBookings();
+      const clients = await window.StudioDatabase.getClients();
+
+      // Metrics
+      document.getElementById('metricTotalBookings').textContent = currentBookings.length;
+      document.getElementById('metricConfirmed').textContent = currentBookings.filter(b => b.status === 'Confirmed').length;
+      document.getElementById('metricPending').textContent = currentBookings.filter(b => b.status === 'Pending').length;
+      document.getElementById('metricClients').textContent = clients.length;
+
+      renderBookingsTable(currentBookings);
+      renderClientsTable(clients);
+    }
+
+    function renderBookingsTable(list) {
+      const tbody = document.getElementById('bookingsTableBody');
+      tbody.innerHTML = '';
+
+      let filtered = list;
+      if (currentFilter !== 'All') {
+        filtered = filtered.filter(b => b.status === currentFilter);
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--ink-muted);">No reservations found matching this criteria.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(b => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong style="font-family: monospace; color: var(--color-obsidian);">${b.id}</strong></td>
+          <td>
+            <div style="font-weight: 700; color: var(--ink-primary);">${b.client_name}</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted);">${b.client_phone}</div>
+          </td>
+          <td>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--gold-zari-dark);">${b.service}</span>
+          </td>
+          <td>
+            <div>${b.booking_date}</div>
+            <div style="font-size: 0.75rem; color: var(--ink-muted);">${b.time_slot}</div>
+          </td>
+          <td>
+            <span style="font-size: 0.78rem;">${b.fitting_type}</span>
+          </td>
+          <td>
+            <span class="status-badge ${b.status}">${b.status}</span>
+          </td>
+          <td style="text-align: right;">
+            <select onchange="changeStatus('${b.id}', this.value)" style="padding: 0.3rem 0.5rem; font-size: 0.75rem; border-radius: var(--radius-xs); border: 1px solid var(--border-light);">
+              <option value="Pending" ${b.status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="Confirmed" ${b.status === 'Confirmed' ? 'selected' : ''}>Confirm</option>
+              <option value="Completed" ${b.status === 'Completed' ? 'selected' : ''}>Completed</option>
+              <option value="Cancelled" ${b.status === 'Cancelled' ? 'selected' : ''}>Cancel</option>
+            </select>
+            <button onclick="removeBooking('${b.id}')" style="background: transparent; border: none; color: #EF4444; cursor: pointer; margin-left: 0.5rem; font-size: 0.85rem;" title="Delete">&times;</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderClientsTable(list) {
+      const tbody = document.getElementById('clientsTableBody');
+      tbody.innerHTML = '';
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--ink-muted);">No client records found.</td></tr>`;
+        return;
+      }
+
+      list.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span style="font-family: monospace; color: var(--ink-muted);">${c.id}</span></td>
+          <td><strong>${c.name}</strong></td>
+          <td>${c.phone || '—'}</td>
+          <td>${c.email || '—'}</td>
+          <td><strong>${c.total_bookings || 1}</strong></td>
+          <td><span style="font-size: 0.75rem; font-weight: 700; color: var(--gold-zari-dark);">${c.tier || 'Member'}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function changeStatus(id, newStatus) {
+      await window.StudioDatabase.updateBookingStatus(id, newStatus);
+      await loadDashboardData();
+    }
+
+    async function removeBooking(id) {
+      if (confirm(`Delete reservation ${id}?`)) {
+        await window.StudioDatabase.deleteBooking(id);
+        await loadDashboardData();
+      }
+    }
+
+    function filterStatus(status, btn) {
+      currentFilter = status;
+      document.querySelectorAll('.btn-filter').forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = 'var(--ink-secondary)';
+      });
+      btn.style.background = '#FFFFFF';
+      btn.style.color = 'var(--color-obsidian)';
+      renderBookingsTable(currentBookings);
+    }
+
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      const filtered = currentBookings.filter(b => 
+        b.client_name.toLowerCase().includes(q) || 
+        b.client_phone.includes(q) ||
+        b.service.toLowerCase().includes(q) ||
+        b.id.toLowerCase().includes(q)
+      );
+      renderBookingsTable(filtered);
+    }
+
+    function exportBookingsToCSV() {
+      let csv = "ID,Client Name,Phone,Email,Service,Date,Time Slot,Mode,Status,Notes\n";
+      currentBookings.forEach(b => {
+        csv += `"${b.id}","${b.client_name}","${b.client_phone}","${b.client_email || ''}","${b.service}","${b.booking_date}","${b.time_slot}","${b.fitting_type}","${b.status}","${(b.notes || '').replace(/"/g, '""')}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `atelier_bookings_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+    }
+
+    async function refreshDashboard() {
+      await loadDashboardData();
+      updateSupabaseStatusDisplay();
+    }
+
+    // Modal controls
+    function openConfigModal() {
+      const cfg = window.StudioDatabase.getConfig();
+      document.getElementById('cfgSupabaseUrl').value = cfg.url || '';
+      document.getElementById('cfgSupabaseKey').value = cfg.key || '';
+      document.getElementById('configModal').classList.add('open');
+    }
+
+    function closeConfigModal() {
+      document.getElementById('configModal').classList.remove('open');
+    }
+
+    function openAddBookingModal() {
+      document.getElementById('addBookingModal').classList.add('open');
+    }
+
+    function closeAddBookingModal() {
+      document.getElementById('addBookingModal').classList.remove('open');
+    }
+
+    async function testSupabaseConnection() {
+      const url = document.getElementById('cfgSupabaseUrl').value;
+      const key = document.getElementById('cfgSupabaseKey').value;
+      const statusBox = document.getElementById('testConnStatus');
+      statusBox.style.display = 'block';
+      statusBox.style.background = '#EFF6FF';
+      statusBox.style.color = '#1E40AF';
+      statusBox.textContent = 'Testing connection to Supabase endpoint...';
+
+      window.StudioDatabase.saveConfig(url, key);
+      const res = await window.StudioDatabase.testConnection();
+
+      if (res.success) {
+        statusBox.style.background = '#D1FAE5';
+        statusBox.style.color = '#065F46';
+        statusBox.textContent = '✓ ' + res.message;
+      } else {
+        statusBox.style.background = '#FEE2E2';
+        statusBox.style.color = '#991B1B';
+        statusBox.textContent = '✕ ' + res.message;
+      }
+      updateSupabaseStatusDisplay();
+    }
+
+    async function handleSaveConfig(e) {
+      e.preventDefault();
+      const url = document.getElementById('cfgSupabaseUrl').value;
+      const key = document.getElementById('cfgSupabaseKey').value;
+      window.StudioDatabase.saveConfig(url, key);
+      updateSupabaseStatusDisplay();
+      closeConfigModal();
+      await loadDashboardData();
+    }
+
+    function copySqlSchema() {
+      const code = document.getElementById('sqlSchemaCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btnCopySql');
+        btn.textContent = 'Copied to Clipboard!';
+        setTimeout(() => { btn.textContent = 'Copy SQL Schema'; }, 2000);
+      });
+    }
+
+    async function handleManualBooking(e) {
+      e.preventDefault();
+      const payload = {
+        client_name: document.getElementById('manualName').value,
+        client_phone: document.getElementById('manualPhone').value,
+        client_email: document.getElementById('manualEmail').value,
+        service: document.getElementById('manualService').value,
+        booking_date: document.getElementById('manualDate').value,
+        time_slot: document.getElementById('manualTime').value,
+        fitting_type: 'In-Studio Atelier Trial',
+        notes: document.getElementById('manualNotes').value
+      };
+
+      await window.StudioDatabase.createBooking(payload);
+      closeAddBookingModal();
+      await loadDashboardData();
+    }
+  </script>
+</body>
+</html>

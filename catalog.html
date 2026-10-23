@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Couture Catalog &amp; Disciplines — Mr &amp; Mrs Modern</title>
+  <meta name="description" content="Explore our full categorized collection of bespoke bridal zardozi embroidery, 90-second pre-pleated sarees, kids festive gowns, tailored bandhgalas, and industrial DTF printing.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=multi_page_v2">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-mark.svg">
+</head>
+<body>
+
+  <!-- Dynamic Island Floating Header -->
+  <header class="dynamic-island-header" id="dynamicIslandHeader" role="banner">
+    <div class="island-inner">
+      <a href="index.html" class="island-brand" aria-label="Mr &amp; Mrs Modern Home">
+        <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" class="island-logo-img">
+      </a>
+
+      <nav class="island-nav" aria-label="Main Navigation">
+        <a href="index.html" class="island-nav-link">Home</a>
+        <a href="catalog.html" class="island-nav-link active">Catalog &amp; Services</a>
+        <a href="about.html" class="island-nav-link">About Atelier</a>
+        <a href="contact.html" class="island-nav-link">Contact &amp; Bank</a>
+        <a href="booking.html" class="island-nav-link">Book Fitting</a>
+      </nav>
+
+      <div class="island-actions">
+        <div class="island-status">
+          <span class="status-dot-pulse"></span>
+          <span>Open 10 AM - 8 PM</span>
+        </div>
+
+        <a href="booking.html" class="island-btn-book">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          <span>Reserve Slot</span>
+        </a>
+
+        <a href="auth.html" class="island-auth-link" title="Client Sign In / Portal" aria-label="Client Sign In">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <a href="admin.html" class="island-auth-link" title="Studio Admin Dashboard" aria-label="Admin Dashboard" style="border: 1px solid rgba(197, 160, 89, 0.4);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        </a>
+
+        <button class="mobile-toggle" id="islandMobileToggle" aria-label="Open Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Catalog Hero Banner -->
+  <section class="lookbook-hero">
+    <div class="container">
+      <div class="category-pills-bar">
+        <span class="cat-pill active" style="cursor: default;">All Disciplines</span>
+        <a href="embroidery.html" class="cat-pill">Bridal Embroidery</a>
+        <a href="saree-pleating.html" class="cat-pill">Saree Pre-Pleating</a>
+        <a href="kids-couture.html" class="cat-pill">Kids Couture</a>
+        <a href="tailoring.html" class="cat-pill">Unisex Tailoring</a>
+        <a href="printing.html" class="cat-pill">Textile Printing</a>
+        <a href="corporate.html" class="cat-pill">Corporate Crests</a>
+      </div>
+
+      <div class="anim-fade-up">
+        <span class="eyebrow">Haute Couture &amp; Production Archive</span>
+        <h1 class="lookbook-title">The Complete Atelier Catalog</h1>
+        <p class="lookbook-subtitle">
+          Explore curated commission pieces, technical embroidery densities, accordion pleat geometries, and industrial transfer prints crafted in our studio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filterable Catalog Grid Section -->
+  <section class="section" id="portfolio" style="padding-top: 2rem;">
+    <div class="container">
+
+      <!-- Filter Tabs -->
+      <div class="portfolio-tabs">
+        <button class="tab-btn active" data-filter="all">All Disciplines</button>
+        <button class="tab-btn" data-filter="embroidery">Bridal Embroidery</button>
+        <button class="tab-btn" data-filter="prepleating">Saree Pre-Pleating</button>
+        <button class="tab-btn" data-filter="kidswear">Kids Couture</button>
+        <button class="tab-btn" data-filter="tailoring">Bespoke Tailoring</button>
+        <button class="tab-btn" data-filter="corporate">Print &amp; Corporate</button>
+      </div>
+
+      <!-- Lookbook Grid -->
+      <div class="portfolio-grid">
+
+        <!-- Card 1: Obsidian Bridal Blouse -->
+        <article class="portfolio-card" data-category="embroidery">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Heirloom Bridal</span>
+            <img src="assets/images/hero_bridal_embroidery.jpg" alt="Artisan Zari Leaf and Floral Blouse Embroidery" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Bridal Zari &amp; Zardozi Blouse</h3>
+            <p>Heirloom metallic antique gold zari bullion stitch embroidery, floral arabesques, and scalloped leaf borders hand-finished on raw obsidian silk.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Fabric: Pure Raw Silk</span>
+              <span class="meta-pill">Embroidery: Gold Bullion Zardozi</span>
+              <span class="meta-pill">Stitch Count: 48,000+</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="embroidery.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=embroidery" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: Crimson Ruby Lehenga -->
+        <article class="portfolio-card" data-category="embroidery">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Trousseau Couture</span>
+            <img src="assets/images/bridal_lehenga_detail.jpg" alt="Royal Crimson Silk and Zardozi Lehenga Detail" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Crimson Ruby Bridal Lehenga</h3>
+            <p>Pure crimson silk embellished with heavy zardozi bullion embroidery, seed pearls, and intricate floral sequin borders engineered for zero fabric drag.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Silk: Royal Crimson</span>
+              <span class="meta-pill">Work: Zardozi &amp; Seed Pearls</span>
+              <span class="meta-pill">Weight: Balanced Can-Can</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="embroidery.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=embroidery" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Pre-Pleated Kanchipuram -->
+        <article class="portfolio-card" data-category="prepleating">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Pre-Pleated Saree</span>
+            <img src="assets/images/saree_pre_pleated_drape.jpg" alt="Pre-Pleated Emerald and Gold Silk Saree" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Accordion Pre-Pleated Kanchipuram</h3>
+            <p>Hand-aligned knife-edge accordion pleats with a calibrated waist anchor and pre-set shoulder pallu. Step in and drape in under 90 seconds.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Fold: Razor Knife-Edge</span>
+              <span class="meta-pill">Setting: Steam-Formed</span>
+              <span class="meta-pill">Wear Time: 90 Seconds</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="saree-pleating.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=saree-pleating" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Macro Pleat Calibration -->
+        <article class="portfolio-card" data-category="prepleating">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Zero-Silk Damage</span>
+            <img src="assets/images/saree_pleat_close.jpg" alt="Macro Knife Edge Silk Pleats on Table" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Macro Knife-Edge Pleat Alignment</h3>
+            <p>Vacuum steam-pressed accordion folds with zero bulking at the waistline. Delivered in a custom crush-proof trousseau box.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Pin-Safe: Zero Silk Rupture</span>
+              <span class="meta-pill">Packaging: Crush-Proof Box</span>
+              <span class="meta-pill">Courier Available</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="saree-pleating.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=saree-pleating" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5: Kids Custom Dress -->
+        <article class="portfolio-card" data-category="kidswear">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Kids Couture</span>
+            <img src="assets/images/kids_couture_dress.jpg" alt="Ivory Tiered Kids Silk Dress with Golden Bow" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Tiered Ivory &amp; Zari Festive Gown</h3>
+            <p>Handcrafted children's festive dress featuring accordion pleated pinafore ruffles, an antique gold satin bow, and temple border trim.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Age: 1 to 12 Years</span>
+              <span class="meta-pill">Fabric: Ivory Raw Silk</span>
+              <span class="meta-pill">Lining: Hypoallergenic Voile</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="kids-couture.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=kids-couture" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6: Traditional Pattu Pavadai -->
+        <article class="portfolio-card" data-category="kidswear">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Heritage Pattu</span>
+            <img src="assets/images/kids_festive_pattu.jpg" alt="Traditional Mustard & Ivory Pattu Pavadai for Girls" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Mustard &amp; Ivory Pattu Pavadai</h3>
+            <p>Pure festive silk with traditional peacock zari brocade borders and delicate gold ribbon bow embellishments for milestone ceremonies.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Style: Heritage Pavadai</span>
+              <span class="meta-pill">Silk: Pure South Silk</span>
+              <span class="meta-pill">Zero-Scratch Interlining</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="kids-couture.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=kids-couture" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 7: Bespoke Mens Sherwani / Bandhgala -->
+        <article class="portfolio-card" data-category="tailoring">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Regal Suiting</span>
+            <img src="assets/images/bespoke_mens_sherwani.jpg" alt="Charcoal & Gold Embroidered Bandhgala" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Charcoal &amp; Gold Royal Bandhgala</h3>
+            <p>Structured silhouette with fine metallic antique gold embroidery along the mandarin collar, pocket plackets, and cuffs.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Fabric: Italian Wool Blend</span>
+              <span class="meta-pill">Fit: Anatomical Bespoke</span>
+              <span class="meta-pill">Buttons: Hand-Chiseled Brass</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="tailoring.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=tailoring" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 8: High-Density DTF Dark Fabric Print -->
+        <article class="portfolio-card" data-category="corporate">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Dark Fabric DTF</span>
+            <img src="assets/images/dtf_streetwear_print.jpg" alt="Heavyweight Black Cotton DTF Graphic Print" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>High-Density Dark Fabric DTF</h3>
+            <p>Vibrant, razor-sharp multi-color graphic execution on heavyweight black cotton with zero cracking or peeling after 60+ washes.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Substrate: 100% Heavy Cotton</span>
+              <span class="meta-pill">Finish: Smooth Matte</span>
+              <span class="meta-pill">Zero Bleed Under Dark</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="printing.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=printing" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 9: Executive Shirt Monogram -->
+        <article class="portfolio-card" data-category="corporate">
+          <div class="portfolio-image-wrapper">
+            <span class="portfolio-badge">Corporate Uniform</span>
+            <img src="assets/images/executive_shirt_embroidery.jpg" alt="Executive Shirt Monogram and Peacock Feather Embroidery" loading="lazy">
+          </div>
+          <div class="portfolio-info">
+            <h3>Executive Monogram &amp; Peacock Crest</h3>
+            <p>High-definition corporate shirt embroidery featuring custom typography paired with an iridescent peacock feather motif in teal and gold.</p>
+            <div class="portfolio-meta-tags">
+              <span class="meta-pill">Substrate: Egyptian Cotton</span>
+              <span class="meta-pill">Placement: Pocket &amp; Yoke</span>
+              <span class="meta-pill">Wash Fastness: 100+ Washes</span>
+            </div>
+            <div class="portfolio-card-actions" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+              <a href="corporate.html" class="btn btn-primary btn-sm" style="flex: 1; text-align: center; text-decoration: none;">
+                <span>Dedicated Page &rarr;</span>
+              </a>
+              <a href="booking.html?service=corporate" class="btn btn-outline btn-sm" style="text-decoration: none;">
+                <span>Book Slot</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Saree Drape Simulator -->
+  <section class="section saree-pleating-section" id="drape-simulator" style="border-top: 1px solid var(--border-light);">
+    <div class="container saree-grid">
+      <div class="saree-text-col">
+        <span class="eyebrow">Signature Atelier Service</span>
+        <h2 class="section-title">The Effortless Drape Revolution</h2>
+        <p class="section-description">
+          Draping a heavy zari silk saree traditionally takes 45 minutes of anxious pinning and sagging borders. Our atelier pre-pleating transforms your saree into a structured, step-in masterpiece.
+        </p>
+
+        <div class="saree-feature-list">
+          <div class="saree-feat-item">
+            <div class="saree-feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="saree-feat-text">
+              <h4>90-Second Step-In Drape</h4>
+              <p>Waist anchor and calibrated pallu allow anyone to slip into an immaculate drape without assistance.</p>
+            </div>
+          </div>
+
+          <div class="saree-feat-item">
+            <div class="saree-feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="saree-feat-text">
+              <h4>Zero Fabric Damage</h4>
+              <p>No safety pin tears or fiber splitting. We use custom soft micro-clips and non-invasive pressing.</p>
+            </div>
+          </div>
+
+          <div class="saree-feat-item">
+            <div class="saree-feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div class="saree-feat-text">
+              <h4>Crush-Proof Destination Box</h4>
+              <p>Shipped in our signature rigid trousseau box. Open at your destination ready to wear.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="saree-simulator-col">
+        <div class="drape-simulator-card">
+          <div class="simulator-header">
+            <div>
+              <span class="sim-badge">Interactive Calibration</span>
+              <h3 class="font-display" style="font-size: 1.25rem;">Live Drape Geometry</h3>
+            </div>
+            <div class="sim-time-badge" id="drape-time-badge">Ready in 90 Seconds</div>
+          </div>
+
+          <div class="drape-style-selector">
+            <button class="drape-btn active" data-style="nivi">Classic Nivi</button>
+            <button class="drape-btn" data-style="gujarati">Royal Gujarati</button>
+            <button class="drape-btn" data-style="mermaid">Bridal Mermaid</button>
+            <button class="drape-btn" data-style="boxpleat">Heritage Box-Pleat</button>
+          </div>
+
+          <div class="drape-preview-panel">
+            <div class="drape-preview-header">
+              <span class="drape-title" id="drape-title">Classic Nivi Accordion Drape</span>
+              <span class="drape-stat-badge">Waist Calibrated</span>
+            </div>
+            <p class="drape-desc" id="drape-desc">
+              The definitive Indian silhouette. Seven razor-sharp 5-inch pleats anchored at the navel with a sweeping shoulder pallu. Ideal for weddings and formal receptions.
+            </p>
+
+            <div class="drape-comparison-bar">
+              <div class="comp-col">
+                <span class="comp-label">Manual Drape</span>
+                <span class="comp-value bad" id="drape-trad-time">35 - 45 Mins</span>
+              </div>
+              <div class="comp-vs">&rarr;</div>
+              <div class="comp-col">
+                <span class="comp-label">Atelier Pre-Pleated</span>
+                <span class="comp-value good" id="drape-atelier-time">1.5 Mins</span>
+              </div>
+            </div>
+
+            <div class="drape-cta-wrap">
+              <a href="booking.html" class="btn btn-primary btn-sm" style="width: 100%; text-align: center;">
+                Reserve Pre-Pleat Service Slot
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Atelier Cost & Turnaround Estimator -->
+  <section class="section estimator-section" id="estimator">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Instant Commercial Transparency</span>
+        <h2 class="section-title">Atelier Cost &amp; Turnaround Estimator</h2>
+        <p class="section-description">
+          Select your desired craft specialization and specifications to calculate estimated production timelines and commercial rates.
+        </p>
+      </div>
+
+      <div class="estimator-wrapper">
+        <div class="est-controls-col">
+          <div class="control-group">
+            <label class="control-label">Craft Specialization</label>
+            <div class="service-pill-selector">
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="embroidery" checked>
+                <span>Bridal Embroidery</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="prepleating">
+                <span>Saree Pre-Pleat</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="kidswear">
+                <span>Kids Couture</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="tailoring">
+                <span>Unisex Tailoring</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="printing">
+                <span>DTF Printing</span>
+              </label>
+              <label class="service-radio-label">
+                <input type="radio" name="est-service" value="corporate">
+                <span>Corporate Crests</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="est-complexity">Work Complexity &amp; Density</label>
+            <select class="est-select" id="est-complexity">
+              <option value="minimal">Minimal / Essential Accents</option>
+              <option value="moderate" selected>Signature Detailed / Balanced</option>
+              <option value="heavy">Heirloom Heavy / Full Coverage</option>
+            </select>
+          </div>
+
+          <div class="control-row-two">
+            <div class="control-group">
+              <label class="control-label" for="est-quantity">Batch Quantity</label>
+              <input type="number" id="est-quantity" class="est-input" value="1" min="1" max="500">
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Production Pace</label>
+              <div class="speed-selector">
+                <label class="speed-radio-label">
+                  <input type="radio" name="est-speed" value="standard" checked>
+                  <span>Standard</span>
+                </label>
+                <label class="speed-radio-label">
+                  <input type="radio" name="est-speed" value="express">
+                  <span>Express (24-48h)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="est-summary-col">
+          <div class="est-receipt-card">
+            <div class="receipt-header">
+              <span class="receipt-tag">ESTIMATION SLIP</span>
+              <span class="badge-seal">GST Ready</span>
+            </div>
+
+            <div class="receipt-body">
+              <div class="est-big-amount" id="est-amount-val">₹2,100 - ₹2,400</div>
+              <div class="est-lead-time" id="est-time-val">Estimated Turnaround: 5 Business Days</div>
+
+              <div class="est-breakdown-list">
+                <div class="breakdown-item">
+                  <span class="item-label">Selected Craft</span>
+                  <span class="item-val" id="sum-service-val">Bridal Zardozi Embroidery</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">Density Tier</span>
+                  <span class="item-val" id="sum-complexity-val">Detailed Floral Motifs</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">Volume</span>
+                  <span class="item-val" id="sum-qty-val">1 Piece</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">Pace</span>
+                  <span class="item-val" id="sum-speed-val">Standard Atelier Craft</span>
+                </div>
+              </div>
+
+              <div class="receipt-actions">
+                <a href="booking.html" class="btn btn-gold btn-sm" style="width: 100%; border-radius: 9999px;">
+                  Schedule Fitting for this Specification
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal Target -->
+  <div class="lightbox-modal" id="artwork-lightbox" aria-hidden="true" role="dialog">
+    <div class="lightbox-backdrop" id="modal-backdrop"></div>
+    <div class="lightbox-container">
+      <button class="lightbox-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
+      <div class="lightbox-content">
+        <div class="lightbox-image-pane">
+          <img src="" alt="" id="modal-image-target">
+        </div>
+        <div class="lightbox-details-pane">
+          <div class="lightbox-header">
+            <span class="lightbox-tag" id="modal-tag-target">Atelier Specification</span>
+            <h3 class="lightbox-title" id="modal-title-target">Artwork Title</h3>
+          </div>
+          <p class="lightbox-desc" id="modal-desc-target">Description goes here.</p>
+          <div class="lightbox-specs-group">
+            <h4 class="specs-title">Couture Technical Data</h4>
+            <ul class="specs-list" id="modal-specs-target"></ul>
+          </div>
+          <div class="lightbox-footer">
+            <a href="booking.html" class="btn btn-primary" id="modal-order-btn">Book Measurement Slot</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimal Footer -->
+  <footer class="footer-main" role="contentinfo" style="border-top: 1px solid var(--border-light); padding: 3rem 0 2rem; background: var(--color-surface);">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.06);">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto;">
+        </a>
+
+        <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.82rem; font-weight: 600;">
+          <a href="index.html" style="color: var(--ink-secondary); text-decoration: none;">Home</a>
+          <a href="catalog.html" style="color: var(--color-obsidian); font-weight: 700; text-decoration: none;">Catalog</a>
+          <a href="about.html" style="color: var(--ink-secondary); text-decoration: none;">About</a>
+          <a href="contact.html" style="color: var(--ink-secondary); text-decoration: none;">Contact &amp; Bank</a>
+          <a href="booking.html" style="color: var(--ink-secondary); text-decoration: none;">Book Slot</a>
+          <a href="auth.html" style="color: var(--ink-secondary); text-decoration: none;">Client Login</a>
+          <a href="admin.html" style="color: var(--gold-zari-dark); text-decoration: none;">Admin Panel</a>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem; font-size: 0.75rem; color: var(--ink-muted);">
+        <div>
+          &copy; 2026 Mr &amp; Mrs Modern. Legal Entity: <strong>Mr &amp; Mrs Modern</strong> (GSTIN: 29AAMFM8921C1Z4).
+        </div>
+        <div>
+          Bespoke Atelier &amp; Industrial Production Unit.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-bar" aria-label="Mobile Quick Actions">
+    <a href="index.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-bar-action active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="booking.html" class="bottom-bar-action" style="color: var(--gold-zari-dark);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+      <span>Book Slot</span>
+    </a>
+    <a href="contact.html" class="bottom-bar-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" style="display: none;" aria-hidden="true">
+    <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+    <div class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="drawer-header">
+        <a href="index.html" class="brand-mark">
+          <img src="assets/images/logo.svg" alt="MR &amp; MRS MODERN" style="height: 32px; width: auto; max-width: 200px;">
+        </a>
+        <button class="drawer-close" id="drawerCloseBtn" aria-label="Close menu">&times;</button>
+      </div>
+
+      <ul class="drawer-links">
+        <li><a href="index.html" class="drawer-link">Home <span>&rarr;</span></a></li>
+        <li><a href="catalog.html" class="drawer-link" style="color: var(--gold-zari-dark); font-weight: 700;">Catalog &amp; Services <span>&rarr;</span></a></li>
+        <li><a href="about.html" class="drawer-link">About Atelier <span>&rarr;</span></a></li>
+        <li><a href="contact.html" class="drawer-link">Contact &amp; Banking Info <span>&rarr;</span></a></li>
+        <li><a href="booking.html" class="drawer-link">Book Fitting Slot <span>&rarr;</span></a></li>
+        <li><a href="auth.html" class="drawer-link">Client Sign In / Register <span>&rarr;</span></a></li>
+        <li><a href="admin.html" class="drawer-link" style="color: var(--gold-zari-dark);">Admin Panel (Supabase) <span>&rarr;</span></a></li>
+      </ul>
+
+      <div class="drawer-footer">
+        <a href="booking.html" class="btn btn-gold btn-sm" style="width: 100%; border-radius: 9999px;">Schedule Atelier Fitting</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=multi_page_v2"></script>
+  <script src="script.js?v=multi_page_v2"></script>
+</body>
+</html>

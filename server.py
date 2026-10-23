@@ -1,0 +1,26 @@
+import http.server
+import socketserver
+import os
+
+PORT = 8080
+DIRECTORY = "/root/.gemini/antigravity-cli/scratch/mr-mrs-designer-studio"
+
+class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory=DIRECTORY, **kwargs)
+
+    def end_headers(self):
+        # Force mobile browsers to never cache CSS/JS during development
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
+        self.send_header('Expires', '0')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        super().end_headers()
+
+# Allow fast address reuse
+socketserver.TCPServer.allow_reuse_address = True
+
+if __name__ == '__main__':
+    with socketserver.TCPServer(("", PORT), NoCacheHandler) as httpd:
+        print(f"Server running with NoCacheHandler at http://0.0.0.0:{PORT}")
+        httpd.serve_forever()
