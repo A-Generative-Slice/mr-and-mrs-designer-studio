@@ -5,6 +5,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initLogoPersistence();
   initDynamicIsland();
   initDrapeSimulator();
   initAtelierEstimator();
@@ -455,3 +456,108 @@ function initStickyBottomBar() {
     });
   });
 }
+
+/* ==========================================================================
+   9. Brand Identity Persistence & Dynamic Logo Selector
+   ========================================================================== */
+function initLogoPersistence() {
+  try {
+    // Default to the official user-selected logo
+    const savedLogo = localStorage.getItem('selected_studio_logo') || 'assets/images/logo.svg';
+    document.querySelectorAll('.island-logo-img, .brand-mark img').forEach(img => {
+      img.src = savedLogo;
+    });
+  } catch (e) {}
+}
+
+window.applyLogoOption = function(optionNum, imageSrc, name) {
+  document.querySelectorAll('.island-logo-img, .brand-mark img').forEach(img => {
+    img.src = imageSrc;
+  });
+  try {
+    localStorage.setItem('selected_studio_logo', imageSrc);
+    localStorage.setItem('selected_studio_logo_name', name);
+  } catch (e) {}
+
+  for (let i = 1; i <= 4; i++) {
+    const card = document.getElementById(`logoCard${i}`);
+    const badge = document.getElementById(`badgeOption${i}`);
+    if (card) {
+      const btn = card.querySelector('button');
+      if (i === optionNum) {
+        card.style.borderColor = 'var(--gold-zari)';
+        card.style.background = 'rgba(197, 160, 89, 0.08)';
+        if (btn) {
+          btn.className = 'btn btn-primary btn-sm';
+          btn.textContent = 'Active Brand Selected';
+        }
+      } else {
+        card.style.borderColor = 'var(--border-light)';
+        card.style.background = 'var(--color-surface-subtle)';
+        if (btn) {
+          btn.className = 'btn btn-outline btn-sm';
+          btn.textContent = `Apply Option ${i} to Site`;
+        }
+      }
+    }
+    if (badge) {
+      badge.style.display = i === optionNum ? 'inline-block' : 'none';
+      if (i === optionNum) badge.textContent = 'Active Brand';
+    }
+  }
+
+  const banner = document.getElementById('logoSelectedBanner');
+  const nameEl = document.getElementById('activeLogoName');
+  if (banner && nameEl) {
+    nameEl.textContent = `Option ${optionNum} (${name})`;
+    banner.style.display = 'block';
+  }
+};
+
+/* ==========================================================================
+   10. Production-Grade Toast Notifications
+   ========================================================================== */
+window.showStudioToast = function(message, type = 'success') {
+  let container = document.getElementById('studioToastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'studioToastContainer';
+    container.className = 'studio-toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `studio-toast ${type}`;
+  const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+  toast.innerHTML = `<span style="font-size: 1.1rem; color: ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#C5A059'};">${icon}</span> <span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'toastOut 0.3s forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+};
+
+/* ==========================================================================
+   11. WhatsApp Floating Concierge Widget
+   ========================================================================== */
+window.toggleWhatsAppChat = function() {
+  const card = document.getElementById('whatsappChatCard');
+  if (!card) return;
+  const isHidden = card.style.display === 'none' || !card.style.display;
+  card.style.display = isHidden ? 'flex' : 'none';
+};
+
+window.openWhatsAppConcierge = function(topic) {
+  const phone = '919876543210';
+  const messages = {
+    'bridal': 'Hello Mr and Mrs Designer Studio! I would like to schedule a bespoke bridal zardozi embroidery consultation.',
+    'pleating': 'Hello! I want to order Saree Pre-Pleating and Box-Fold valet service for my upcoming event.',
+    'suiting': 'Hello! I would like to book a bespoke tailoring measurement trial for suiting / bandhgala.',
+    'location': 'Hello! Please share your studio map location and landmark directions.',
+    'payment': 'Hello! I would like to confirm my advance booking deposit via UPI / Bank transfer.'
+  };
+  const msg = encodeURIComponent(messages[topic] || 'Hello Mr and Mrs Designer Studio! I would like to inquire about your services.');
+  window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  toggleWhatsAppChat();
+};

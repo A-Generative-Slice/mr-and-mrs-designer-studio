@@ -113,17 +113,23 @@
       } catch (e) {
         console.warn('Could not read Supabase config', e);
       }
-      return { url: '', key: '' };
+      return { url: '', key: '', google_client_id: '' };
     }
 
-    saveConfig(url, key) {
-      const config = { url: (url || '').trim(), key: (key || '').trim() };
+    saveConfig(url, key, google_client_id) {
+      const prev = this.getConfig();
+      const config = {
+        url: (url !== undefined ? url : prev.url || '').trim(),
+        key: (key !== undefined ? key : prev.key || '').trim(),
+        google_client_id: (google_client_id !== undefined ? google_client_id : prev.google_client_id || '').trim()
+      };
       localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
       this.initClient();
       return this.isConfigured();
     }
 
     initClient() {
+      this._checkIncomingOAuth();
       const { url, key } = this.getConfig();
       if (url && key && window.supabase && typeof window.supabase.createClient === 'function') {
         try {
@@ -406,7 +412,37 @@
       return { success: true, user: guest };
     }
 
+    _checkIncomingOAuth() {
+      try {
+        const hash = window.location.hash;
+        if (hash && hash.includes('access_token=')) {
+          const params = new URLSearchParams(hash.substring(1));
+          const token = params.get('access_token');
+          if (token) {
+            fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+              headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(r => r.json())
+            .then(profile => {
+              if (profile && profile.email) {
+                this.loginWithGoogleProfile({
+                  name: profile.name || profile.email.split('@')[0],
+                  email: profile.email,
+                  avatar: profile.picture || ''
+                });
+                window.history.replaceState({}, document.title, window.location.pathname);
+              }
+            })
+            .catch(err => console.warn('Google userinfo fetch failed:', err));
+          }
+        }
+      } catch (e) {}
+    }
+
     async signInWithGoogle() {
+      const { google_client_id } = this.getConfig();
+
+      // 1. If live Supabase is configured with OAuth
       if (this.isConfigured()) {
         try {
           const { data, error } = await this.supabaseClient.auth.signInWithOAuth({
@@ -415,17 +451,21 @@
               redirectTo: window.location.origin + '/auth.html'
             }
           });
-          if (error) {
-            console.warn('Supabase Google OAuth error:', error);
-            return { success: false, fallbackRequired: true, message: error.message };
-          }
-          return { success: true };
+          if (!error) return { success: true, mode: 'supabase' };
         } catch (e) {
-          console.warn('Google OAuth exception:', e);
-          return { success: false, fallbackRequired: true, message: e.message };
+          console.warn('Supabase Google OAuth error:', e);
         }
       }
-      return { success: false, fallbackRequired: true, message: 'Supabase credentials not yet configured.' };
+
+      // 2. If Google Cloud Client ID is configured, direct redirect to accounts.google.com
+      if (google_client_id) {
+        const redirectUri = window.location.origin + '/auth.html';
+        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(google_client_id)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=email%20profile`;
+        window.location.href = authUrl;
+        return { success: true, mode: 'google_direct' };
+      }
+
+      return { success: false, setupRequired: true, message: 'Google Client ID or Supabase OAuth is not configured yet.' };
     }
 
     loginWithGoogleProfile(googleData) {

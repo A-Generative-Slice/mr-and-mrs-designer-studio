@@ -193,6 +193,12 @@
           <input type="text" id="cfgSupabaseKey" class="est-input" style="width: 100%; font-family: monospace; font-size: 0.8rem;" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
         </div>
 
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">Google Cloud OAuth Client ID (Direct Google Login)</label>
+          <input type="text" id="cfgGoogleClientId" class="est-input" style="width: 100%; font-family: monospace; font-size: 0.8rem;" placeholder="123456789-xxxxxx.apps.googleusercontent.com">
+          <span style="font-size: 0.7rem; color: var(--ink-muted); display: block; margin-top: 0.25rem;">Enables direct popup/redirect to accounts.google.com without template fallbacks.</span>
+        </div>
+
         <div id="testConnStatus" style="display: none; padding: 0.75rem; border-radius: var(--radius-xs); font-size: 0.8rem; margin-bottom: 1.25rem;"></div>
 
         <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
@@ -468,6 +474,7 @@
       const cfg = window.StudioDatabase.getConfig();
       document.getElementById('cfgSupabaseUrl').value = cfg.url || '';
       document.getElementById('cfgSupabaseKey').value = cfg.key || '';
+      document.getElementById('cfgGoogleClientId').value = cfg.google_client_id || '';
       document.getElementById('configModal').classList.add('open');
     }
 
@@ -486,13 +493,14 @@
     async function testSupabaseConnection() {
       const url = document.getElementById('cfgSupabaseUrl').value;
       const key = document.getElementById('cfgSupabaseKey').value;
+      const gId = document.getElementById('cfgGoogleClientId').value;
       const statusBox = document.getElementById('testConnStatus');
       statusBox.style.display = 'block';
       statusBox.style.background = '#EFF6FF';
       statusBox.style.color = '#1E40AF';
       statusBox.textContent = 'Testing connection to Supabase endpoint...';
 
-      window.StudioDatabase.saveConfig(url, key);
+      window.StudioDatabase.saveConfig(url, key, gId);
       const res = await window.StudioDatabase.testConnection();
 
       if (res.success) {
@@ -511,7 +519,8 @@
       e.preventDefault();
       const url = document.getElementById('cfgSupabaseUrl').value;
       const key = document.getElementById('cfgSupabaseKey').value;
-      window.StudioDatabase.saveConfig(url, key);
+      const gId = document.getElementById('cfgGoogleClientId').value;
+      window.StudioDatabase.saveConfig(url, key, gId);
       updateSupabaseStatusDisplay();
       closeConfigModal();
       await loadDashboardData();

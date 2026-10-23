@@ -335,6 +335,61 @@
     </div>
   </div>
 
+  
+  <!-- Floating WhatsApp Concierge FAB -->
+  <div class="whatsapp-floating-fab" onclick="toggleWhatsAppChat()" aria-label="Open WhatsApp Atelier Concierge" role="button" tabindex="0">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.41a8.188 8.188 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.54 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.01-1.24-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/>
+    </svg>
+  </div>
+
+  <!-- WhatsApp Concierge Interactive Chat Card -->
+  <div class="whatsapp-chat-card" id="whatsappChatCard" role="dialog" aria-modal="true" aria-label="WhatsApp Studio Concierge">
+    <div class="whatsapp-chat-header">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="assets/images/brand_logo.png" alt="Mr and Mrs Designer Studio" style="width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid #FFFFFF;">
+        <div>
+          <div style="font-weight: 700; font-size: 0.88rem;">Mr &amp; Mrs Concierge</div>
+          <div style="font-size: 0.7rem; opacity: 0.9; display: flex; align-items: center; gap: 0.35rem;">
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #25D366; display: inline-block;"></span>
+            <span>Online &bull; Usually replies in 15 mins</span>
+          </div>
+        </div>
+      </div>
+      <button onclick="toggleWhatsAppChat()" style="background: none; border: none; color: #FFFFFF; font-size: 1.4rem; cursor: pointer; line-height: 1;">&times;</button>
+    </div>
+
+    <div class="whatsapp-chat-body">
+      <div class="whatsapp-bubble">
+        👋 Welcome to <strong>Mr and Mrs Designer Studio</strong>!<br>
+        How can our master artisans assist your bespoke commission today?
+      </div>
+
+      <div class="whatsapp-chip-list">
+        <button class="whatsapp-chip-btn" onclick="openWhatsAppConcierge('bridal')">
+          <span>💍 Bridal Zardozi Consultation</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="whatsapp-chip-btn" onclick="openWhatsAppConcierge('pleating')">
+          <span>👗 90-Sec Saree Pre-Pleating Valet</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="whatsapp-chip-btn" onclick="openWhatsAppConcierge('suiting')">
+          <span>👔 Bespoke Suiting / Bandhgala</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="whatsapp-chip-btn" onclick="openWhatsAppConcierge('location')">
+          <span>📍 Studio Address &amp; Map Pin</span>
+          <span>&rarr;</span>
+        </button>
+        <button class="whatsapp-chip-btn" onclick="openWhatsAppConcierge('payment')">
+          <span>💳 Booking Advance &amp; GST Details</span>
+          <span>&rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=multi_page_v2"></script>
   <script src="script.js?v=multi_page_v2"></script>
