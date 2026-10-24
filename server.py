@@ -3,7 +3,7 @@ import socketserver
 import os
 
 PORT = 8080
-DIRECTORY = "/root/.gemini/antigravity-cli/scratch/mr-mrs-designer-studio"
+DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):

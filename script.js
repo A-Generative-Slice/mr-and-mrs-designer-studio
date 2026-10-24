@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initConsultationForm();
   initStickyBottomBar();
+  initScrollAnimations();
 });
 
 /* ==========================================================================
@@ -561,3 +562,27 @@ window.openWhatsAppConcierge = function(topic) {
   window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
   toggleWhatsAppChat();
 };
+
+/* ==========================================================================
+   12. Smooth Scroll Animations
+   ========================================================================== */
+function initScrollAnimations() {
+  const reveals = document.querySelectorAll('.reveal-on-scroll');
+  if (!reveals.length) return;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+  } else {
+    reveals.forEach(el => el.classList.add('is-visible'));
+  }
+}
+

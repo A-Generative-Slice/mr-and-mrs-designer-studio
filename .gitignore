@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 .env
 GEMINI.md
+*.log
+screenshots/
+audit_all_pages.py
+audit_results.json
+
