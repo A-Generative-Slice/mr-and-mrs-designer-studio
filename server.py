@@ -2,7 +2,22 @@ import http.server
 import socketserver
 import os
 
-PORT = 8080
+import socket
+
+def get_available_port(default_port=8081):
+    env_port = os.environ.get('PORT')
+    if env_port:
+        return int(env_port)
+    for p in [8081, 8082, 8085, 8080]:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind(('', p))
+                return p
+            except OSError:
+                continue
+    return default_port
+
+PORT = get_available_port(8081)
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
