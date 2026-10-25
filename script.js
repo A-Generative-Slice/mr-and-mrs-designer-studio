@@ -229,7 +229,7 @@ function initAtelierEstimator() {
         `• Estimate Range: ₹${lowEstimate} - ₹${highEstimate}\n\n` +
         `Please advise on fabric consultation and appointment availability.`
       );
-      consultQuoteBtn.href = `https://wa.me/919087470744?text=${summaryText}`;
+      consultQuoteBtn.href = `https://wa.me/919943214618?text=${summaryText}`;
     }
   }
 
@@ -321,7 +321,7 @@ function initLightboxModal() {
           `• Commission Reference: ${title} (${tag})\n` +
           `• Looking to discuss custom bespoke sizing and fabric options.`
         );
-        modalActionBtn.href = `https://wa.me/919087470744?text=${msg}`;
+        modalActionBtn.href = `https://wa.me/919943214618?text=${msg}`;
       }
 
       if (modal) {
@@ -439,7 +439,7 @@ function initConsultationForm() {
       }
 
       setTimeout(() => {
-        window.open(`https://wa.me/919087470744?text=${bookingMsg}`, '_blank');
+        window.open(`https://wa.me/919943214618?text=${bookingMsg}`, '_blank');
       }, 650);
     });
   }
@@ -550,7 +550,7 @@ window.toggleWhatsAppChat = function() {
 };
 
 window.openWhatsAppConcierge = function(topic) {
-  const phone = '919087470744';
+  const phone = '919943214618';
   const messages = {
     'bridal': 'Hello Mr and Mrs Designer Studio! I would like to schedule a bespoke bridal zardozi embroidery consultation.',
     'pleating': 'Hello! I want to order Saree Pre-Pleating and Box-Fold valet service for my upcoming event.',
