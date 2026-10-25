@@ -3177,6 +3177,10 @@ body {
 
 /* Mobile Safe Areas and Touch Target Optimizations */
 @media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
   body {
     padding-top: 0;
     padding-bottom: 74px; /* Space for sticky bottom bar */
